@@ -107,8 +107,8 @@ Pod::Spec.new do |s|
   #  non-essential files like tests, examples and documentation.
   #
 
-   # s.resource  = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/DSCollectionViewCell.xib"
-   s.resources = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/*"
+    s.resource  = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/DSCollectionViewCell.xib"
+   #s.resources = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/*"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
