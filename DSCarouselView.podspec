@@ -94,7 +94,7 @@ Pod::Spec.new do |s|
   #
 
   s.source_files  = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView", "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/**/*.{h,m}"
-  s.exclude_files = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/*.{xib}"
+  s.exclude_files = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/DSCollectionViewCell.{xib}"
 
   # s.public_header_files = "Classes/**/*.h"
 
