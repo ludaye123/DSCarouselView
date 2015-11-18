@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "DSCarouselView"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "DSCarouselView. 自动轮播图片控件"
 
   # This description is used to generate tags and improve search results.
@@ -82,7 +82,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/ludaye123/DSCarouselView.git", :tag => "1.0.1" }
+  s.source       = { :git => "https://github.com/ludaye123/DSCarouselView.git", :tag => "1.0.2" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -107,7 +107,7 @@ Pod::Spec.new do |s|
   #  non-essential files like tests, examples and documentation.
   #
 
-  # s.resource  = "icon.png"
+    s.resource  = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/DSCollectionViewCell.xib"
   # s.resources = "Resources/*.png"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
