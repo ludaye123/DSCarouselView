@@ -108,7 +108,7 @@ Pod::Spec.new do |s|
   #
 
     #s.resource  = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/DSCollectionViewCell.xib"
-    s.resources = ["DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/*.xib"]
+    s.resources = ['DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/*.xib']
 
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
