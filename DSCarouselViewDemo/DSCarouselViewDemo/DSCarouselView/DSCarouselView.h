@@ -24,7 +24,7 @@
 @property (nonatomic, getter=isAutoMoving, assign) BOOL autoMoving;   // Default is YES
 @property (nonatomic, assign) NSTimeInterval autoMoveDuration;        // Default is 3
 
-@property (nonatomic, weak) id<DSCarouselViewDelegate> carouseDelegate;
+@property (nonatomic, weak) id<DSCarouselViewDelegate> delegate;
 
 + (instancetype)carouseViewWithImageURLs:(NSArray *)imageURLs placeholder:(UIImage *)placeholder;
 - (instancetype)initWithImageURLs:(NSArray *)imageURLs placeholder:(UIImage *)placeholder;

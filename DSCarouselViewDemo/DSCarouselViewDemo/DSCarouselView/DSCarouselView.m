@@ -134,9 +134,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%zd",indexPath.item-1);
-    if(self.carouseDelegate && [self.carouseDelegate respondsToSelector:@selector(carouselView:didSelectItemAtIndex:)])
+    if(self.delegate && [self.delegate respondsToSelector:@selector(carouselView:didSelectItemAtIndex:)])
     {
-        [self.carouseDelegate carouselView:self didSelectItemAtIndex:indexPath.item-1];
+        [self.delegate carouselView:self didSelectItemAtIndex:indexPath.item-1];
     }
 }
 
