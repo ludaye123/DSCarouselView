@@ -19,7 +19,6 @@
 		49F793171BFB0106002D4033 /* DSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F793151BFB0106002D4033 /* DSCollectionViewCell.m */; };
 		49F793181BFB0106002D4033 /* DSCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F793161BFB0106002D4033 /* DSCollectionViewCell.xib */; };
 		49F7931E1BFB0232002D4033 /* DSCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F7931D1BFB0231002D4033 /* DSCarouselView.m */; };
-		49F793211BFB1DC6002D4033 /* DSCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F793201BFB1DC6002D4033 /* DSCollectionViewFlowLayout.m */; };
 		49F793231BFC0E2F002D4033 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 49F793221BFC0E2F002D4033 /* placeholder.png */; };
 /* End PBXBuildFile section */
 
@@ -62,8 +61,6 @@
 		49F793161BFB0106002D4033 /* DSCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSCollectionViewCell.xib; sourceTree = "<group>"; };
 		49F7931C1BFB0231002D4033 /* DSCarouselView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSCarouselView.h; sourceTree = "<group>"; };
 		49F7931D1BFB0231002D4033 /* DSCarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSCarouselView.m; sourceTree = "<group>"; };
-		49F7931F1BFB1DC6002D4033 /* DSCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSCollectionViewFlowLayout.h; sourceTree = "<group>"; };
-		49F793201BFB1DC6002D4033 /* DSCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		49F793221BFC0E2F002D4033 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		5F23A327E9E0E3B4F833F3CB /* libPods-DSCarouselViewDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DSCarouselViewDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DBD825E994603054A9C3AC0 /* Pods-DSCarouselViewDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DSCarouselViewDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DSCarouselViewDemo/Pods-DSCarouselViewDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -174,8 +171,6 @@
 		49F793131BFB00B8002D4033 /* DSCarouselView */ = {
 			isa = PBXGroup;
 			children = (
-				49F7931F1BFB1DC6002D4033 /* DSCollectionViewFlowLayout.h */,
-				49F793201BFB1DC6002D4033 /* DSCollectionViewFlowLayout.m */,
 				49F793141BFB0106002D4033 /* DSCollectionViewCell.h */,
 				49F793151BFB0106002D4033 /* DSCollectionViewCell.m */,
 				49F793161BFB0106002D4033 /* DSCollectionViewCell.xib */,
@@ -380,7 +375,6 @@
 				49F792E81BFB00B4002D4033 /* ViewController.m in Sources */,
 				49F792E51BFB00B4002D4033 /* AppDelegate.m in Sources */,
 				49F7931E1BFB0232002D4033 /* DSCarouselView.m in Sources */,
-				49F793211BFB1DC6002D4033 /* DSCollectionViewFlowLayout.m in Sources */,
 				49F792E21BFB00B4002D4033 /* main.m in Sources */,
 				49F793171BFB0106002D4033 /* DSCollectionViewCell.m in Sources */,
 			);

@@ -8,7 +8,6 @@
 
 #import "DSCarouselView.h"
 #import "DSCollectionViewCell.h"
-#import "DSCollectionViewFlowLayout.h"
 #import "UIImageView+WebCache.h"   
 
 @interface DSCarouselView () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
