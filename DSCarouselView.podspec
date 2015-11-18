@@ -93,8 +93,8 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView", "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/**/*.{h,m,xib}"
-  s.exclude_files = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/DSCollectionViewCell.{xib}"
+  s.source_files  = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView", "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/**/*.{h,m}"
+  #s.exclude_files = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/DSCollectionViewCell.{xib}"
 
   # s.public_header_files = "Classes/**/*.h"
 
@@ -108,7 +108,7 @@ Pod::Spec.new do |s|
   #
 
    # s.resource  = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/DSCollectionViewCell.xib"
-  # s.resources = "Resources/*.png"
+   s.resources = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/*.xib"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
