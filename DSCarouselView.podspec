@@ -94,7 +94,7 @@ Pod::Spec.new do |s|
   #
 
   s.source_files  = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView", "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/**/*.{h,m}"
-  #s.exclude_files = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/DSCollectionViewCell.{xib}"
+  #s.exclude_files = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/DSCollectionViewCell.xib"
 
   # s.public_header_files = "Classes/**/*.h"
 
@@ -107,8 +107,9 @@ Pod::Spec.new do |s|
   #  non-essential files like tests, examples and documentation.
   #
 
-    s.resource  = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/DSCollectionViewCell.xib"
-   #s.resources = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/*"
+    #s.resource  = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/DSCollectionViewCell.xib"
+    s.resources = "DSCarouselViewDemo/DSCarouselViewDemo/DSCarouselView/DSCollectionViewCell.xib"
+
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
