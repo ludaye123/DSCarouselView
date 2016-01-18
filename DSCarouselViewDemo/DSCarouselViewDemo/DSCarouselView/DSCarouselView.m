@@ -133,7 +133,6 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%zd",indexPath.item-1);
     if(self.delegate && [self.delegate respondsToSelector:@selector(carouselView:didSelectItemAtIndex:)])
     {
         [self.delegate carouselView:self didSelectItemAtIndex:indexPath.item-1];
@@ -230,12 +229,18 @@
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.autoMoveDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if(self.isAutoMoving)
-        {
+    [self delayStart];
+}
+
+- (void)delayStart
+{
+    if(self.isAutoMoving)
+    {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.autoMoveDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
             [self startTimer];
-        }
-    });
+        });
+    }
 }
 
 #pragma mark Setter && Getter
@@ -254,8 +259,7 @@
         _imageURLs = [NSArray arrayWithArray:tempImages];
     
         [self.collectionView reloadData];
-        
-        [self startTimer];
+        [self delayStart];
     }
 }
 
