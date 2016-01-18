@@ -145,7 +145,9 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     if(self.isAutoMoving)
+    {
         [self pauseMove];
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -260,7 +262,7 @@
     if(!_timer)
     {
         _timer = [NSTimer scheduledTimerWithTimeInterval:self.autoMoveDuration target:self selector:@selector(scrollToNextPage:) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
+        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     }
     
     return _timer;
