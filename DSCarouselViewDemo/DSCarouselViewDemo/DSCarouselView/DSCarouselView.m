@@ -30,20 +30,25 @@
 
 - (void)awakeFromNib
 {
-    
     [self setupCollectionView];
 }
 
-- (instancetype)initWithImageURLs:(NSArray *)imageURLs placeholder:(UIImage *)placeholder
+- (instancetype)init
 {
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    flowLayout.minimumInteritemSpacing = 0.0;
-    flowLayout.minimumLineSpacing = 0.0;
     self = [super init];
     if(self)
     {
         [self setupCollectionView];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithImageURLs:(NSArray *)imageURLs placeholder:(UIImage *)placeholder
+{
+    self = [self init];
+    if(self)
+    {
         [self setImageURLs:imageURLs];
         [self setPlaceholder:placeholder];
     }
@@ -168,7 +173,6 @@
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    
     if(scrollView.contentOffset.x < CGRectGetWidth(self.bounds))
     {
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.imageURLs.count - 2 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
@@ -234,7 +238,7 @@
 
 - (void)delayStart
 {
-    if(self.isAutoMoving)
+    if(self.isAutoMoving && self.imageURLs.count > 0)
     {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.autoMoveDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
@@ -259,6 +263,7 @@
         _imageURLs = [NSArray arrayWithArray:tempImages];
     
         [self.collectionView reloadData];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
         [self delayStart];
     }
 }
@@ -290,6 +295,7 @@
         _collectionView.pagingEnabled = YES;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
+        _collectionView.backgroundColor = [UIColor whiteColor];
     
         [_collectionView registerNib:[DSCollectionViewCell collectionViewCellFromNib]
           forCellWithReuseIdentifier:[DSCollectionViewCell identifier]];
@@ -313,7 +319,6 @@
 
 - (void)dealloc
 {
-    NSLog(@"%@ dealloc",NSStringFromClass([self class]));
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
