@@ -254,6 +254,8 @@
         _imageURLs = [NSArray arrayWithArray:tempImages];
     
         [self.collectionView reloadData];
+        
+        [self startTimer];
     }
 }
 

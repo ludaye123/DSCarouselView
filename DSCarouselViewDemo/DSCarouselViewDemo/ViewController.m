@@ -37,7 +37,8 @@
                             @"http://imgsrc.baidu.com/forum/w%3D580/sign=0c1b13ef0c3387449cc52f74610ed937/bf94b9315c6034a8a4e0f53ecb13495408237644.jpg",
                             @"http://hiphotos.baidu.com/%95%D7%D4%AA%B5%C0/pic/item/432e6436d9cd9b4deac4af86.jpg"];
         
-        _carouseView = [DSCarouselView carouseViewWithImageURLs:images placeholder:[UIImage imageNamed:@"placeholder" ]];
+//
+        _carouseView = [DSCarouselView carouseViewWithImageURLs:images placeholder:[UIImage imageNamed:@"placeholder"]];
 //        _carouseView.frame = CGRectMake(0.0, 20.0, CGRectGetWidth(self.view.bounds), 200.0);
         _carouseView.translatesAutoresizingMaskIntoConstraints = 0.0;
     }
