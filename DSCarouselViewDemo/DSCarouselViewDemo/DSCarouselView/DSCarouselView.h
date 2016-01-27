@@ -14,20 +14,22 @@
  *  要求 iOS 8.0+
  */
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol DSCarouselViewDelegate;
 
 @interface DSCarouselView : UIView
 
-@property (nonatomic, copy)   NSArray *imageURLs;
-@property (nonatomic, strong) UIImage *placeholder;
+@property (nonnull ,nonatomic, copy)   NSArray<NSString *> *imageURLs;
+@property (nullable ,nonatomic, strong) UIImage *placeholder;
 
 @property (nonatomic, getter=isAutoMoving, assign) BOOL autoMoving;   // Default is YES
 @property (nonatomic, assign) NSTimeInterval autoMoveDuration;        // Default is 3
 
-@property (nonatomic, weak) id<DSCarouselViewDelegate> delegate;
+@property (nullable ,nonatomic, weak) id<DSCarouselViewDelegate> delegate;
 
-+ (instancetype)carouseViewWithImageURLs:(NSArray *)imageURLs placeholder:(UIImage *)placeholder;
-- (instancetype)initWithImageURLs:(NSArray *)imageURLs placeholder:(UIImage *)placeholder;
++ (instancetype)carouseViewWithImageURLs:(NSArray<NSString *> *)imageURLs placeholder:(UIImage *)placeholder;
+- (instancetype)initWithImageURLs:(NSArray<NSString *> *)imageURLs placeholder:(UIImage *)placeholder;
 
 @end
 
@@ -35,6 +37,8 @@
 
 @optional
 
-- (void)carouselView:(DSCarouselView *)view didSelectItemAtIndex:(NSInteger)index;
+- (void)carouselView:(DSCarouselView *)view didSelectImageItemAtIndex:(NSInteger)index;
 
 @end
+
+NS_ASSUME_NONNULL_END

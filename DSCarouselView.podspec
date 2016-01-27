@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "DSCarouselView"
-  s.version      = "1.1.8"
+  s.version      = "1.1.9"
   s.summary      = "DSCarouselView. 自动轮播图片控件"
 
   # This description is used to generate tags and improve search results.
@@ -67,10 +67,10 @@ Pod::Spec.new do |s|
   #
 
    s.platform     = :ios
-   s.platform     = :ios, "8.0"
+   s.platform     = :ios, "7.0"
 
   #  When using multiple platforms
-   s.ios.deployment_target = "8.0"
+   s.ios.deployment_target = "7.0"
   # s.osx.deployment_target = "10.7"
   # s.watchos.deployment_target = "2.0"
   # s.tvos.deployment_target = "9.0"
@@ -82,7 +82,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/ludaye123/DSCarouselView.git", :tag => "1.1.8" }
+  s.source       = { :git => "https://github.com/ludaye123/DSCarouselView.git", :tag => "1.1.9" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

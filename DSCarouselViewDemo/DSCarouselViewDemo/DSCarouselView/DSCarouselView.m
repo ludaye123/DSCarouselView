@@ -12,10 +12,12 @@
 
 @interface DSCarouselView () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic, getter=isFirstLoad, assign) BOOL firstLoad;
-@property (nonatomic, strong) NSTimer  *timer;
-@property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) UIPageControl *pageControl;
+@property (nonatomic, getter = isFirstLoad, assign) BOOL firstLoad;
+@property (nonatomic, assign) BOOL timerState;
+
+@property (nonnull, nonatomic, strong) UICollectionView *collectionView;
+@property (nonnull, nonatomic, strong) UIPageControl *pageControl;
+@property (nullable, nonatomic, strong) dispatch_source_t timerSource;
 
 @end
 
@@ -23,7 +25,7 @@
 
 #pragma mark - Init
 
-+ (instancetype)carouseViewWithImageURLs:(NSArray *)imageURLs placeholder:(UIImage *)placeholder
++ (instancetype)carouseViewWithImageURLs:(NSArray<NSString *> *)imageURLs placeholder:(UIImage *)placeholder
 {
     return [[self alloc] initWithImageURLs:imageURLs placeholder:placeholder];
 }
@@ -44,7 +46,7 @@
     return self;
 }
 
-- (instancetype)initWithImageURLs:(NSArray *)imageURLs placeholder:(UIImage *)placeholder
+- (instancetype)initWithImageURLs:(NSArray<NSString *> *)imageURLs placeholder:(UIImage *)placeholder
 {
     self = [self init];
     if(self)
@@ -54,13 +56,6 @@
     }
     
     return  self;
-}
-
-- (void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    self.collectionView.contentOffset = CGPointMake(CGRectGetWidth(frame), 0);
-    self.pageControl.currentPage = 0;
 }
 
 - (void)layoutSubviews
@@ -102,8 +97,7 @@
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0.0-[_collectionView]-0.0-|" options:0 metrics:nil views:viewDict]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0.0-[_collectionView]-0.0-|" options:0 metrics:nil views:viewDict]];
-    
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5.0-[_pageControl]-5.0-|" options:0 metrics:nil views:viewDict]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0.0-[_pageControl]-0.0-|" options:0 metrics:nil views:viewDict]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_pageControl]-0.0-|" options:0 metrics:nil views:viewDict]];
 }
 
@@ -138,9 +132,9 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(carouselView:didSelectItemAtIndex:)])
+    if(self.delegate && [self.delegate respondsToSelector:@selector(carouselView:didSelectImageItemAtIndex:)])
     {
-        [self.delegate carouselView:self didSelectItemAtIndex:indexPath.item-1];
+        [self.delegate carouselView:self didSelectImageItemAtIndex:indexPath.item-1];
     }
 }
 
@@ -157,8 +151,9 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     if(self.isAutoMoving)
+    {
         [self resumeMove];
-    
+    }
     if(scrollView.contentOffset.x < CGRectGetWidth(self.bounds))
     {
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.imageURLs.count - 2 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
@@ -177,7 +172,7 @@
     {
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.imageURLs.count - 2 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
     }
-    else if(scrollView.contentOffset.x == (self.imageURLs.count - 1) * CGRectGetWidth(self.bounds))
+    else if(scrollView.contentOffset.x >= (self.imageURLs.count - 1) * CGRectGetWidth(self.bounds))
     {
         [scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.bounds), 0) animated:NO];
     }
@@ -197,53 +192,56 @@
 
 - (void)startTimer
 {
-    [self.timer setFireDate:[NSDate distantPast]];
+    if(self.isAutoMoving && self.imageURLs.count > 0)
+    {
+        dispatch_resume(self.timerSource);
+        self.timerState = YES;
+    }
 }
 
 - (void)stopTimer
 {
-    [self.timer invalidate];
-    self.timer = nil;
+    if(self.isAutoMoving && self.imageURLs.count > 0)
+    {
+        dispatch_cancel(self.timerSource);
+        self.timerSource = nil;
+    }
 }
 
 - (void)resumeMove
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.autoMoveDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        
-        [self.timer setFireDate:[NSDate distantPast]];
+        dispatch_resume(self.timerSource);
     });
 }
 
 - (void)pauseMove
 {
-    [self.timer setFireDate:[NSDate distantFuture]];
+    dispatch_suspend(self.timerSource);
 }
 
-- (void)scrollToNextPage:(NSTimer *)timer
+#pragma mark - Scroll Next
+
+- (void)scrollToNextPage
 {
     CGPoint contentOffset = CGPointMake(self.collectionView.contentOffset.x + CGRectGetWidth(self.bounds), 0);
     [self.collectionView setContentOffset:contentOffset animated:YES];
 }
 
+#pragma mark - Application State
+
 - (void)applicationWillResignActive:(NSNotification *)notification
 {
-    if(self.isAutoMoving)
-        [self stopTimer];
+    [self stopTimer];
+    self.timerState = NO;
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-    [self delayStart];
-}
-
-- (void)delayStart
-{
-    if(self.isAutoMoving && self.imageURLs.count > 0)
+    if(!self.timerState)
     {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.autoMoveDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-
-            [self startTimer];
-        });
+        [self startTimer];
     }
 }
 
@@ -264,19 +262,27 @@
     
         [self.collectionView reloadData];
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-        [self delayStart];
+        [self startTimer];
     }
 }
 
-- (NSTimer *)timer
+- (dispatch_source_t)timerSource
 {
-    if(!_timer)
+    if(!_timerSource)
     {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:self.autoMoveDuration target:self selector:@selector(scrollToNextPage:) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, self.autoMoveDuration * NSEC_PER_SEC);
+        _timerSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+        dispatch_source_set_timer(_timerSource, start, self.autoMoveDuration * NSEC_PER_SEC, 0);
+        dispatch_source_set_event_handler(_timerSource, ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                [self scrollToNextPage];
+            });
+        });
     }
     
-    return _timer;
+    return _timerSource;
 }
 
 - (UICollectionView *)collectionView
@@ -308,8 +314,9 @@
 {
     if(!_pageControl)
     {
-        _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(5.0, 100.0, 39.0, 37.0)];
+        _pageControl = [[UIPageControl alloc] initWithFrame:CGRectZero];
         _pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+        _pageControl.userInteractionEnabled = NO;
     }
     
     return _pageControl;
